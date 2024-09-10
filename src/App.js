@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Navbar from './Navbar';
+import Canvas from './Canvas';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [tool, setTool] = useState('pencil');
+
+  const selectTool = (selectedTool) => {
+    setTool(selectedTool);
+  };
+
+  const clearCanvas = () => {
+    const canvas = document.querySelector('canvas');
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='title'></div>
+      <div className='app-container'>
+        <Navbar selectTool={selectTool} clearCanvas={clearCanvas} />
+        <Canvas tool={tool} />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
